@@ -14,6 +14,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Button.Account;
+using Button.Core.DependencyInjection;
+using Button.Core.MessageServices;
+using Button.Core.Navigation;
+using Button.Views;
 
 namespace Button
 {
@@ -28,10 +33,22 @@ namespace Button
         /// </summary>
         public App()
         {
+            
+            ServiceLocator.Locator.Bind<IMessageService, MessageService>(LifetimeMode.Singleton);
+            ServiceLocator.Locator.Bind<INavigationService, NavigationService>(LifetimeMode.Singleton);
+            ServiceLocator.Locator.Bind<IAccountService, AccountService>(LifetimeMode.Singleton);
+           
+            UnhandledException += OnUnhandledException;
+
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
-
+                
+        private async void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+            //TODO: Make logger
+        }
         /// <summary>
         /// Вызывается при обычном запуске приложения пользователем.  Будут использоваться другие точки входа,
         /// например, если приложение запускается для открытия конкретного файла.
@@ -72,10 +89,26 @@ namespace Button
                 // Если стек навигации не восстанавливается для перехода к первой странице,
                 // настройка новой страницы путем передачи необходимой информации в качестве параметра
                 // параметр
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                var navigationService = ServiceLocator.Locator.Get<INavigationService>();
+                navigationService.Initialize(rootFrame, GetPageResolver());
+                rootFrame.Navigate(typeof(LoginPage), e.Arguments);
             }
             // Обеспечение активности текущего окна
             Window.Current.Activate();
+        }
+
+        private PageResolver GetPageResolver()
+        {
+            var dictionary = new Dictionary<string, Type>();
+            dictionary.Add(ViewLocator.Benefits, typeof(DrawbacksPage));
+            dictionary.Add(ViewLocator.Login, typeof(LoginPage));
+            dictionary.Add(ViewLocator.Drawbacks, typeof(BenefitsPage));
+            dictionary.Add(ViewLocator.Main, typeof(MainPage));
+            dictionary.Add(ViewLocator.MainSearch, typeof(MainSearchPage));
+            dictionary.Add(ViewLocator.Profile, typeof(ProfilePage));
+            dictionary.Add(ViewLocator.SelfProfile, typeof(SelfProfilePage));
+            dictionary.Add(ViewLocator.Settings, typeof(SettingsPage));
+            return new PageResolver(dictionary);
         }
 
         /// <summary>

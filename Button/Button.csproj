@@ -112,6 +112,12 @@
     <Compile Include="Views\AccountActivationSearch.xaml.cs">
       <DependentUpon>AccountActivationSearch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AccountFirstSettings.xaml.cs">
+      <DependentUpon>AccountFirstSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ActivationConfirmation.xaml.cs">
+      <DependentUpon>ActivationConfirmation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BenefitsPage.xaml.cs">
       <DependentUpon>BenefitsPage.xaml</DependentUpon>
     </Compile>
@@ -187,6 +193,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AccountActivationSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AccountFirstSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActivationConfirmation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

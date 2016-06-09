@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="Button.Views.AccountActivationSearch"
+    x:Class="Button.Views.AccountFirstSettings"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Button.Views"
@@ -56,7 +56,7 @@
             IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
             Text="{Binding Username, Mode=TwoWay}"
             />
-        
+
         <ListBox
             Grid.Row="2"
             Grid.ColumnSpan="3"
@@ -68,7 +68,7 @@
             ></ListBox>
 
         <Button
-            Content="Поиск"
+            Content="Активировать"
     		Grid.Row="5"
     		Grid.ColumnSpan="3"
             HorizontalAlignment="Center"

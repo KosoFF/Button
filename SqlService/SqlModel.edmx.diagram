@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4768f303d7ff4ff9b11f258022b43245" Name="Diagram1">
+        <EntityTypeShape EntityType="courseworkModel.account" Width="1.5" PointX="5.25" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="courseworkModel.details" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="courseworkModel.eduprogram" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="courseworkModel.faculty" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="courseworkModel.group" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="courseworkModel.reply" Width="1.5" PointX="9.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="courseworkModel.replyCollection" Width="1.5" PointX="7.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="courseworkModel.user" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="courseworkModel.FK_user_account" ManuallyRouted="false" />
+        <AssociationConnector Association="courseworkModel.FK_user_details1" ManuallyRouted="false" />
+        <AssociationConnector Association="courseworkModel.FK_eduprogram_faculty" ManuallyRouted="false" />
+        <AssociationConnector Association="courseworkModel.FK_group_eduprogram" ManuallyRouted="false" />
+        <AssociationConnector Association="courseworkModel.FK_user_group" ManuallyRouted="false" />
+        <AssociationConnector Association="courseworkModel.FK_reply_replyCollection" ManuallyRouted="false" />
+        <AssociationConnector Association="courseworkModel.FK_reply_user" ManuallyRouted="false" />
+        <AssociationConnector Association="courseworkModel.FK_reply_user1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -18,6 +18,7 @@ using Button.Account;
 using Button.Core.DependencyInjection;
 using Button.Core.MessageServices;
 using Button.Core.Navigation;
+using Button.SqlLinkService;
 using Button.Views;
 
 namespace Button
@@ -37,6 +38,7 @@ namespace Button
             ServiceLocator.Locator.Bind<IMessageService, MessageService>(LifetimeMode.Singleton);
             ServiceLocator.Locator.Bind<INavigationService, NavigationService>(LifetimeMode.Singleton);
             ServiceLocator.Locator.Bind<IAccountService, AccountService>(LifetimeMode.Singleton);
+            ServiceLocator.Locator.Bind<ISqlLinkService, LinkService>(LifetimeMode.Singleton);
            
             UnhandledException += OnUnhandledException;
 
@@ -103,7 +105,7 @@ namespace Button
             dictionary.Add(ViewLocator.Benefits, typeof(DrawbacksPage));
             dictionary.Add(ViewLocator.Login, typeof(LoginPage));
             dictionary.Add(ViewLocator.Drawbacks, typeof(BenefitsPage));
-            dictionary.Add(ViewLocator.Main, typeof(MainPage));
+            dictionary.Add(ViewLocator.Main, typeof(Views.MainPage));
             dictionary.Add(ViewLocator.MainSearch, typeof(MainSearchPage));
             dictionary.Add(ViewLocator.Profile, typeof(ProfilePage));
             dictionary.Add(ViewLocator.SelfProfile, typeof(SelfProfilePage));

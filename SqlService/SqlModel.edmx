@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище courseworkModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailConfirmed" Type="bit" />
+          <Property Name="RegistrationTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="details">
+          <Key>
+            <PropertyRef Name="DetailsID" />
+          </Key>
+          <Property Name="DetailsID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="HseLink" Type="nvarchar" MaxLength="128" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="ConnectionLink" Type="nvarchar" MaxLength="128" />
+          <Property Name="ConnectionEmail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="eduprogram">
+          <Key>
+            <PropertyRef Name="EduprogramID" />
+          </Key>
+          <Property Name="EduprogramID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="EduprogramName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FacultyID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="faculty">
+          <Key>
+            <PropertyRef Name="FacultyID" />
+          </Key>
+          <Property Name="FacultyID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FacultyName" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="EduprogramID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="GroupName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FoundationYear" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="reply">
+          <Key>
+            <PropertyRef Name="ReplyID" />
+          </Key>
+          <Property Name="ReplyID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Sender" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Recipient" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ReplyCollectionID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="replyCollection">
+          <Key>
+            <PropertyRef Name="ReplyCollectionID" />
+          </Key>
+          <Property Name="ReplyCollectionID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Text" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsBad" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsStudent" Type="bit" Nullable="false" />
+          <Property Name="ProfilePhoto" Type="varbinary(max)" />
+          <Property Name="AccountID" Type="nvarchar" MaxLength="128" />
+          <Property Name="GroupID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DetailsID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_eduprogram_faculty">
+          <End Role="faculty" Type="Self.faculty" Multiplicity="1" />
+          <End Role="eduprogram" Type="Self.eduprogram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="faculty">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="eduprogram">
+              <PropertyRef Name="FacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_group_eduprogram">
+          <End Role="eduprogram" Type="Self.eduprogram" Multiplicity="1" />
+          <End Role="group" Type="Self.group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="eduprogram">
+              <PropertyRef Name="EduprogramID" />
+            </Principal>
+            <Dependent Role="group">
+              <PropertyRef Name="EduprogramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reply_replyCollection">
+          <End Role="replyCollection" Type="Self.replyCollection" Multiplicity="1" />
+          <End Role="reply" Type="Self.reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="replyCollection">
+              <PropertyRef Name="ReplyCollectionID" />
+            </Principal>
+            <Dependent Role="reply">
+              <PropertyRef Name="ReplyCollectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reply_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="reply" Type="Self.reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="reply">
+              <PropertyRef Name="Sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reply_user1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="reply" Type="Self.reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="reply">
+              <PropertyRef Name="Recipient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_account">
+          <End Role="account" Type="Self.account" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_details1">
+          <End Role="details" Type="Self.details" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="details">
+              <PropertyRef Name="DetailsID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="DetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_group">
+          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище courseworkModelContainer">
+          <EntitySet Name="account" EntityType="Self.account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="details" EntityType="Self.details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="eduprogram" EntityType="Self.eduprogram" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="faculty" EntityType="Self.faculty" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="group" EntityType="Self.group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="reply" EntityType="Self.reply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="replyCollection" EntityType="Self.replyCollection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_eduprogram_faculty" Association="Self.FK_eduprogram_faculty">
+            <End Role="faculty" EntitySet="faculty" />
+            <End Role="eduprogram" EntitySet="eduprogram" />
+          </AssociationSet>
+          <AssociationSet Name="FK_group_eduprogram" Association="Self.FK_group_eduprogram">
+            <End Role="eduprogram" EntitySet="eduprogram" />
+            <End Role="group" EntitySet="group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reply_replyCollection" Association="Self.FK_reply_replyCollection">
+            <End Role="replyCollection" EntitySet="replyCollection" />
+            <End Role="reply" EntitySet="reply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reply_user" Association="Self.FK_reply_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="reply" EntitySet="reply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reply_user1" Association="Self.FK_reply_user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="reply" EntitySet="reply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_account" Association="Self.FK_user_account">
+            <End Role="account" EntitySet="account" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_details1" Association="Self.FK_user_details1">
+            <End Role="details" EntitySet="details" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_group" Association="Self.FK_user_group">
+            <End Role="group" EntitySet="group" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="courseworkModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" />
+          <Property Name="RegistrationTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_account" FromRole="account" ToRole="user" />
+        </EntityType>
+        <EntityType Name="details">
+          <Key>
+            <PropertyRef Name="DetailsID" />
+          </Key>
+          <Property Name="DetailsID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HseLink" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ConnectionLink" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ConnectionEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_details1" FromRole="details" ToRole="user" />
+        </EntityType>
+        <EntityType Name="eduprogram">
+          <Key>
+            <PropertyRef Name="EduprogramID" />
+          </Key>
+          <Property Name="EduprogramID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EduprogramName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FacultyID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="faculty" Relationship="Self.FK_eduprogram_faculty" FromRole="eduprogram" ToRole="faculty" />
+          <NavigationProperty Name="group" Relationship="Self.FK_group_eduprogram" FromRole="eduprogram" ToRole="group" />
+        </EntityType>
+        <EntityType Name="faculty">
+          <Key>
+            <PropertyRef Name="FacultyID" />
+          </Key>
+          <Property Name="FacultyID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FacultyName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="eduprogram" Relationship="Self.FK_eduprogram_faculty" FromRole="faculty" ToRole="eduprogram" />
+        </EntityType>
+        <EntityType Name="group">
+          <Key>
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="GroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EduprogramID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FoundationYear" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="eduprogram" Relationship="Self.FK_group_eduprogram" FromRole="group" ToRole="eduprogram" />
+          <NavigationProperty Name="user" Relationship="Self.FK_user_group" FromRole="group" ToRole="user" />
+        </EntityType>
+        <EntityType Name="reply">
+          <Key>
+            <PropertyRef Name="ReplyID" />
+          </Key>
+          <Property Name="ReplyID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sender" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Recipient" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ReplyCollectionID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="replyCollection" Relationship="Self.FK_reply_replyCollection" FromRole="reply" ToRole="replyCollection" />
+          <NavigationProperty Name="user" Relationship="Self.FK_reply_user" FromRole="reply" ToRole="user" />
+          <NavigationProperty Name="user1" Relationship="Self.FK_reply_user1" FromRole="reply" ToRole="user" />
+        </EntityType>
+        <EntityType Name="replyCollection">
+          <Key>
+            <PropertyRef Name="ReplyCollectionID" />
+          </Key>
+          <Property Name="ReplyCollectionID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsBad" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="reply" Relationship="Self.FK_reply_replyCollection" FromRole="replyCollection" ToRole="reply" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsStudent" Type="Boolean" Nullable="false" />
+          <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="AccountID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="GroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DetailsID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="account" Relationship="Self.FK_user_account" FromRole="user" ToRole="account" />
+          <NavigationProperty Name="details" Relationship="Self.FK_user_details1" FromRole="user" ToRole="details" />
+          <NavigationProperty Name="group" Relationship="Self.FK_user_group" FromRole="user" ToRole="group" />
+          <NavigationProperty Name="reply" Relationship="Self.FK_reply_user" FromRole="user" ToRole="reply" />
+          <NavigationProperty Name="reply1" Relationship="Self.FK_reply_user1" FromRole="user" ToRole="reply" />
+        </EntityType>
+        <Association Name="FK_user_account">
+          <End Role="account" Type="Self.account" Multiplicity="0..1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_details1">
+          <End Role="details" Type="Self.details" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="details">
+              <PropertyRef Name="DetailsID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="DetailsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_eduprogram_faculty">
+          <End Role="faculty" Type="Self.faculty" Multiplicity="1" />
+          <End Role="eduprogram" Type="Self.eduprogram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="faculty">
+              <PropertyRef Name="FacultyID" />
+            </Principal>
+            <Dependent Role="eduprogram">
+              <PropertyRef Name="FacultyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_group_eduprogram">
+          <End Role="eduprogram" Type="Self.eduprogram" Multiplicity="1" />
+          <End Role="group" Type="Self.group" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="eduprogram">
+              <PropertyRef Name="EduprogramID" />
+            </Principal>
+            <Dependent Role="group">
+              <PropertyRef Name="EduprogramID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_group">
+          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="group">
+              <PropertyRef Name="GroupID" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="GroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reply_replyCollection">
+          <End Role="replyCollection" Type="Self.replyCollection" Multiplicity="1" />
+          <End Role="reply" Type="Self.reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="replyCollection">
+              <PropertyRef Name="ReplyCollectionID" />
+            </Principal>
+            <Dependent Role="reply">
+              <PropertyRef Name="ReplyCollectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reply_user">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="reply" Type="Self.reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="reply">
+              <PropertyRef Name="Sender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_reply_user1">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="reply" Type="Self.reply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="reply">
+              <PropertyRef Name="Recipient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="courseworkEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="account" EntityType="Self.account" />
+          <EntitySet Name="details" EntityType="Self.details" />
+          <EntitySet Name="eduprogram" EntityType="Self.eduprogram" />
+          <EntitySet Name="faculty" EntityType="Self.faculty" />
+          <EntitySet Name="group" EntityType="Self.group" />
+          <EntitySet Name="reply" EntityType="Self.reply" />
+          <EntitySet Name="replyCollection" EntityType="Self.replyCollection" />
+          <EntitySet Name="user" EntityType="Self.user" />
+          <AssociationSet Name="FK_user_account" Association="Self.FK_user_account">
+            <End Role="account" EntitySet="account" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_details1" Association="Self.FK_user_details1">
+            <End Role="details" EntitySet="details" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_eduprogram_faculty" Association="Self.FK_eduprogram_faculty">
+            <End Role="faculty" EntitySet="faculty" />
+            <End Role="eduprogram" EntitySet="eduprogram" />
+          </AssociationSet>
+          <AssociationSet Name="FK_group_eduprogram" Association="Self.FK_group_eduprogram">
+            <End Role="eduprogram" EntitySet="eduprogram" />
+            <End Role="group" EntitySet="group" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_group" Association="Self.FK_user_group">
+            <End Role="group" EntitySet="group" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reply_replyCollection" Association="Self.FK_reply_replyCollection">
+            <End Role="replyCollection" EntitySet="replyCollection" />
+            <End Role="reply" EntitySet="reply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reply_user" Association="Self.FK_reply_user">
+            <End Role="user" EntitySet="user" />
+            <End Role="reply" EntitySet="reply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_reply_user1" Association="Self.FK_reply_user1">
+            <End Role="user" EntitySet="user" />
+            <End Role="reply" EntitySet="reply" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище courseworkModelContainer" CdmEntityContainer="courseworkEntities">
+          <EntitySetMapping Name="account">
+            <EntityTypeMapping TypeName="courseworkModel.account">
+              <MappingFragment StoreEntitySet="account">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="RegistrationTime" ColumnName="RegistrationTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="details">
+            <EntityTypeMapping TypeName="courseworkModel.details">
+              <MappingFragment StoreEntitySet="details">
+                <ScalarProperty Name="DetailsID" ColumnName="DetailsID" />
+                <ScalarProperty Name="HseLink" ColumnName="HseLink" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ConnectionLink" ColumnName="ConnectionLink" />
+                <ScalarProperty Name="ConnectionEmail" ColumnName="ConnectionEmail" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="eduprogram">
+            <EntityTypeMapping TypeName="courseworkModel.eduprogram">
+              <MappingFragment StoreEntitySet="eduprogram">
+                <ScalarProperty Name="EduprogramID" ColumnName="EduprogramID" />
+                <ScalarProperty Name="EduprogramName" ColumnName="EduprogramName" />
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="faculty">
+            <EntityTypeMapping TypeName="courseworkModel.faculty">
+              <MappingFragment StoreEntitySet="faculty">
+                <ScalarProperty Name="FacultyID" ColumnName="FacultyID" />
+                <ScalarProperty Name="FacultyName" ColumnName="FacultyName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="group">
+            <EntityTypeMapping TypeName="courseworkModel.group">
+              <MappingFragment StoreEntitySet="group">
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="EduprogramID" ColumnName="EduprogramID" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="FoundationYear" ColumnName="FoundationYear" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reply">
+            <EntityTypeMapping TypeName="courseworkModel.reply">
+              <MappingFragment StoreEntitySet="reply">
+                <ScalarProperty Name="ReplyID" ColumnName="ReplyID" />
+                <ScalarProperty Name="Sender" ColumnName="Sender" />
+                <ScalarProperty Name="Recipient" ColumnName="Recipient" />
+                <ScalarProperty Name="ReplyCollectionID" ColumnName="ReplyCollectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="replyCollection">
+            <EntityTypeMapping TypeName="courseworkModel.replyCollection">
+              <MappingFragment StoreEntitySet="replyCollection">
+                <ScalarProperty Name="ReplyCollectionID" ColumnName="ReplyCollectionID" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="IsBad" ColumnName="IsBad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user">
+            <EntityTypeMapping TypeName="courseworkModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="IsStudent" ColumnName="IsStudent" />
+                <ScalarProperty Name="ProfilePhoto" ColumnName="ProfilePhoto" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="DetailsID" ColumnName="DetailsID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

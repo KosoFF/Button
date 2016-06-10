@@ -1,6 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Button.Core.DependencyInjection;
+using Button.Core.Helpers;
+using Button.Core.MessageServices;
 using Button.Core.Observable;
+using Button.SqlLinkService;
+using Button.SqlReference;
 
 namespace Button.Account
 {
@@ -64,61 +70,52 @@ namespace Button.Account
 
         public async Task LoginAsync(string login, string pass)
         {
-//            var password = Helpers.ComputeMd5(pass);
-//            if (_checkInProgress) return;
-//            _checkInProgress = true;
-//            var messageService = ServiceLocator.Locator.Get<IMessageService>();
+            var password = Helpers.ComputeMd5(pass);
+            if (_checkInProgress) return;
+            _checkInProgress = true;
+            var messageService = ServiceLocator.Locator.Get<IMessageService>();
+            var linkService = ServiceLocator.Locator.Get<ISqlLinkService>();
 
-//            var sqlService = new ServiceClient();
+            
 
-//            var response = await sqlService.LoginAsync(login, password);
-//            if (response == null)
-//            {
-//                await messageService.ShowAsync("Error", "Invalid login or password");
-//                _checkInProgress = false;
-//                return;
-//            }
-//            if (response.Login == "Connection error")
-//            {
-//#if DEBUG
+            var response = await linkService.LoginAsync(login, pass);
+            if (response == null)
+            {
+                await messageService.ShowAsync("Error", "Invalid login or password");
+                _checkInProgress = false;
+                return;
+            }
+            //            if (response.Login == "Connection error")
+            //            {
+            //#if DEBUG
 
-//                await
-//                    messageService.ShowAsync("Error",
-//                        "There must be a problem with connection to database. \n Anyway, welcome.");
+            //                await
+            //                    messageService.ShowAsync("Error",
+            //                        "There must be a problem with connection to database. \n Anyway, welcome.");
 
-//#else
-//                await messageService.ShowAsync("Error", "There must be a problem with connection to database. ");
-//                return;
-//#endif
-//            }
-//            //User = new User
-//            //{
-//            //    Email = response?.Email,
-//            //    PasswordHash = response?.PasswordHash,
-//            //    Id = response?.Id,
-//            //    UserName = response?.UserName,
-//            //    PhoneNumber = response?.PhoneNumber,
-//            //    PhoneNumberConfirmed = response.PhoneNumberConfirmed,
-//            //    AccessFailedCount = response.AccessFailedCount,
-//            //    EmailConfirmed = response.EmailConfirmed,
-//            //    LockoutEnabled = response.LockoutEnabled,
-//            //    TwoFactorEnabled = response.TwoFactorEnabled,
-//            //    SecurityStamp = response?.SecurityStamp
-//            //};
-//#if DEBUG
-//            //await messageService.ShowAsync("Success", "Hi, " + User.UserName);
-//#endif
-//            Account = new Account()
-//            {
-//                FirstName = response.FirstName,
-//                LastName = response.LastName,
-//                PasswordHash = response.PasswordHash,
-//                UserId = response.Id,
-//                UserName = response.Login
-//            };
-//            IsLoggedIn = true;
-//            OnAccountStatusChanged();
-//            _checkInProgress = false;
+            //#else
+            //                await messageService.ShowAsync("Error", "There must be a problem with connection to database. ");
+            //                return;
+            //#endif
+            //            }
+
+          
+            Account = new Account()
+                        {
+                            Username = response.Username,
+                            PasswordHash = response.PasswordHash,
+                            AccountId = response.AccountID,
+                            Email = response.Email,
+                            EmailConfirmed = response.EmailConfirmed,
+                            RegistrationTime = response.RegistrationTime,
+                            UserId = response.UserId
+                        };
+            #if DEBUG
+                        await messageService.ShowAsync("Success", "Hi, " + Account.Username);
+            #endif
+            IsLoggedIn = true;
+            OnAccountStatusChanged();
+            _checkInProgress = false;
         }
 
         public async Task LogoutAsync()

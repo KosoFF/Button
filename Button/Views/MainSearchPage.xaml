@@ -5,7 +5,8 @@
     xmlns:local="using:Button.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+     DataContext="{Binding MainSearchViewModel, Source={StaticResource ViewModelLocator}}">
 
     <Grid 
         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -28,14 +29,17 @@
             Margin="10 0 0 0"
             BorderThickness="1"
             BorderBrush="Black"/>
-        
-        <Image 
-            Grid.Row="0"
-            Source="../Assets/avatar.png"
-            Grid.Column="1"
+        <Button Grid.Column="1"
             Margin="10"
-            Height="35" />
-        
+            Height="35"
+            Grid.Row="0"
+                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding MyProfileCommand}">
+        <Image 
+            
+            Source="../Assets/avatar.png"
+            />
+        </Button>
         <TextBox
             Grid.Row="1"
             Grid.ColumnSpan="2"

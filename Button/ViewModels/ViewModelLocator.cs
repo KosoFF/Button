@@ -9,6 +9,9 @@ namespace Button.ViewModels
     public class ViewModelLocator
     {
         public LoginViewModel LoginViewModel => new LoginViewModel();
+        public SelfProfileViewModel SelfProfileViewModel => new SelfProfileViewModel();
+        public MainSearchViewModel MainSearchViewModel => new MainSearchViewModel();
+        public MainViewModel MainViewModel => new MainViewModel();
         //public ControlViewModel ControlViewModel => new ControlViewModel();
         //public CheckInViewModel CheckInViewModel => new CheckInViewModel();
         //public PassengerRegisterViewModel PassengerRegisterViewModel => new PassengerRegisterViewModel();

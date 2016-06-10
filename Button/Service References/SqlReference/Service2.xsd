@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SqlService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SqlService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfuser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="user" nillable="true" type="tns:user" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfuser" nillable="true" type="tns:ArrayOfuser" />
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetailsID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GroupID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsStudent" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MiddleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProfilePhoto" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="UserID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="account" nillable="true" type="tns:account" />
+      <xs:element minOccurs="0" name="details" nillable="true" type="tns:details" />
+      <xs:element minOccurs="0" name="group" nillable="true" type="tns:group" />
+      <xs:element minOccurs="0" name="reply" nillable="true" type="tns:ArrayOfreply" />
+      <xs:element minOccurs="0" name="reply1" nillable="true" type="tns:ArrayOfreply" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="user" nillable="true" type="tns:user" />
+  <xs:complexType name="account">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailConfirmed" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PasswordHash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistrationTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="user" nillable="true" type="tns:ArrayOfuser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="account" nillable="true" type="tns:account" />
+  <xs:complexType name="details">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ConnectionEmail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConnectionLink" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DetailsID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HseLink" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhoneNumber" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="user" nillable="true" type="tns:ArrayOfuser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="details" nillable="true" type="tns:details" />
+  <xs:complexType name="group">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EduprogramID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FoundationYear" type="xs:int" />
+      <xs:element minOccurs="0" name="GroupID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GroupName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="eduprogram" nillable="true" type="tns:eduprogram" />
+      <xs:element minOccurs="0" name="user" nillable="true" type="tns:ArrayOfuser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="group" nillable="true" type="tns:group" />
+  <xs:complexType name="eduprogram">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EduprogramID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EduprogramName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FacultyID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="faculty" nillable="true" type="tns:faculty" />
+      <xs:element minOccurs="0" name="group" nillable="true" type="tns:ArrayOfgroup" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="eduprogram" nillable="true" type="tns:eduprogram" />
+  <xs:complexType name="faculty">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="FacultyID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FacultyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="eduprogram" nillable="true" type="tns:ArrayOfeduprogram" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="faculty" nillable="true" type="tns:faculty" />
+  <xs:complexType name="ArrayOfeduprogram">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="eduprogram" nillable="true" type="tns:eduprogram" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfeduprogram" nillable="true" type="tns:ArrayOfeduprogram" />
+  <xs:complexType name="ArrayOfgroup">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="group" nillable="true" type="tns:group" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfgroup" nillable="true" type="tns:ArrayOfgroup" />
+  <xs:complexType name="ArrayOfreply">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="reply" nillable="true" type="tns:reply" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfreply" nillable="true" type="tns:ArrayOfreply" />
+  <xs:complexType name="reply">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Recipient" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReplyCollectionID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReplyID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sender" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="replyCollection" nillable="true" type="tns:replyCollection" />
+      <xs:element minOccurs="0" name="user" nillable="true" type="tns:user" />
+      <xs:element minOccurs="0" name="user1" nillable="true" type="tns:user" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="reply" nillable="true" type="tns:reply" />
+  <xs:complexType name="replyCollection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IsBad" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ReplyCollectionID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Text" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="reply" nillable="true" type="tns:ArrayOfreply" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="replyCollection" nillable="true" type="tns:replyCollection" />
+  <xs:complexType name="AccountInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AccountID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmailConfirmed" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PasswordHash" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegistrationTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountInformation" nillable="true" type="tns:AccountInformation" />
+</xs:schema>

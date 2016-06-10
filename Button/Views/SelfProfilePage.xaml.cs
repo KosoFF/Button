@@ -26,5 +26,6 @@ namespace Button.Views
         {
             this.InitializeComponent();
         }
+      
     }
 }

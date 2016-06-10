@@ -5,7 +5,8 @@
     xmlns:local="using:Button.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    DataContext="{Binding SelfProfileViewModel, Source={StaticResource ViewModelLocator}}">
     
     <ScrollViewer 
         VerticalScrollBarVisibility="Auto">
@@ -24,20 +25,23 @@
                 <ColumnDefinition Width="6*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-
-            <Image 
+            <Button
                 Grid.Row="0"
-                Source="../Assets/back.png"
                 Grid.Column="0"
                 Margin="10"
-                Height="30"/>
-
-            <Image 
-                Grid.Row="0"
-                Source="../Assets/settings.png"
-                Grid.Column="2"
+                Height="30"
+                 IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding GoBackCommand}">
+            <Image Source="../Assets/back.png"/>
+             </Button>
+            
+            <Button  Grid.Row="0" Grid.Column="2"
                 Margin="10"
-                Height="35"/>
+                Height="35"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding SettingsCommand}">
+            <Image Source="../Assets/settings.png"/>
+            </Button>
 
             <Rectangle
                 RadiusX="150"
@@ -51,11 +55,11 @@
                 Width="300">
                 <Rectangle.Fill>
                     <ImageBrush 
-                        ImageSource="../Assets/Снимок.PNG"/>
+                        ImageSource="{Binding SelfImage}"/>
                 </Rectangle.Fill>
             </Rectangle>
 
-            <TextBlock 
+            <TextBlock Text="{Binding Title}"
                 Grid.Row="0"
                 Grid.Column="1"
                 Foreground="Black"
@@ -63,20 +67,18 @@
                 FontWeight="Medium"
                 FontSize="20"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                КИРИЛЛ СЕРГЕЕВИЧ ГОМЕНЮК
-            </TextBlock>
-
-            <Image
-                Source="../Assets/photo-camera.png"
-                Grid.Column="1"
+                VerticalAlignment="Center"/>
+            <!--<Button Grid.Column="1"
                 Grid.Row="1"
                 Width="300"
                 Height="300"
                 Margin="10"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                />
+                VerticalAlignment="Stretch">
+            <Image
+                Source="..\..\Assets\photo-camera.png"/>
+            </Button>-->
+            
 
             <Button
     		Grid.Row="7"
@@ -92,13 +94,12 @@
             BorderBrush="Black"
             BorderThickness="0.5"
             />
-
-            <Image
-    		Source="../Assets/edit.png"
-    		Grid.Row="7"
+            <Button Grid.Row="2"
     		Margin="10"
-    		Height="30"/>
-
+    		Height="30">
+            <Image
+    		Source="../Assets/edit.png"/>
+            </Button>
         </Grid>
     </ScrollViewer>
 </Page>

@@ -26,7 +26,7 @@ namespace Button.ViewModels
             
 #if DEBUG
             Username = "abraam";
-            Password = "urUkdrXi";
+            Password = "123456";
 #endif
         }
 
@@ -121,9 +121,9 @@ namespace Button.ViewModels
                 var passwordVault = new PasswordVault();
                 
             }
-            //await accountService.LoginAsync(Username, Password);
-            //if (accountService.IsLoggedIn)
-                NavigationService.NavigateWithoutHistory(ViewLocator.SelfProfile);
+            await accountService.LoginAsync(Username, Password);
+            if (accountService.IsLoggedIn)
+                NavigationService.NavigateWithoutHistory(ViewLocator.MainSearch);
             IsLoading = false;
 
             

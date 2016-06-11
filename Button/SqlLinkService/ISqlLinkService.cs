@@ -16,6 +16,25 @@ namespace Button.SqlLinkService
 
 
         Task<string> GetTitle(string user);
+        Task<Dictionary<string, string>> GetUsersDictionary();
+
+        Task<bool> AddReplies(string sender, string reciever, bool isBad, Dictionary<string, string> replies);
+        Task<Dictionary<string, string>> GetDrawbacks();
+        Task<Dictionary<string, string>> GetBenefits();
+
+        Task<Dictionary<string, string>> GetRepliesCount(string recepient);
+
+        Task<string> GetEmail(string userid);
+
+        Task<string> GetMobilePhone(string userid);
+
+        Task SetMobilePhone(string userid, string mobilephone);
+
+        Task SetEmail(string userid, string email);
+        Task<Dictionary<string, string>> GetFreeUsersDictionary();
+
+        Task<bool> SignUp(AccountInformation account);
+
 
     }
 }

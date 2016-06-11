@@ -15,7 +15,7 @@ namespace SqlService
 
         #region Login
         [OperationContract]
-        bool SignUp(account manager);
+        bool SignUp(AccountInformation account);
 
         [OperationContract]
         string GetTitle(string user);
@@ -27,7 +27,36 @@ namespace SqlService
         byte [] GetPhoto(string user);
 
         [OperationContract]
+        Dictionary<string, string> GetUsersDictionary();
+        [OperationContract]
         AccountInformation Login(string login, string passwordHash);
+        [OperationContract]
+        Dictionary<string, string> GetPositiveReplies();
+        [OperationContract]
+        Dictionary<string, string> GetNegativeReplies();
+
+        [OperationContract]
+        bool AddReplies(string sender, string reciever, bool isBad, Dictionary<string, string> replies);
+
+        [OperationContract]
+        Dictionary<string, string> GetRepliesCount(string recepient);
+
+        [OperationContract]
+        string GetMobilePhone(string userid);
+
+        [OperationContract]
+        string GetEmail(string userid);
+
+        [OperationContract]
+        void SetMobilePhone(string userid, string mobilePhone);
+
+        [OperationContract]
+
+        void SetEmail(string userid, string email);
+
+        [OperationContract]
+        Dictionary<string, string> GetFreeUsersDictionary();
+
         #endregion //login
     }
 

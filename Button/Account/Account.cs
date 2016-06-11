@@ -11,5 +11,7 @@ namespace Button.Account
         public string Email { get; set; }
         public bool? EmailConfirmed { get; set; }
         public DateTime? RegistrationTime { get; set; }
+        
+        public string WatchUserId { get; set; }
     }
 }

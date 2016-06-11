@@ -1,68 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using Windows.Graphics.Imaging;
-using Windows.Security.Credentials;
 using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using Button.Account;
 using Button.Core.Commands;
 using Button.Core.DependencyInjection;
 using Button.Core.Helpers;
 using Button.Core.MessageServices;
-using Button.Core.Navigation;
 using Button.Services;
 using Button.SqlLinkService;
 
-
 namespace Button.ViewModels
 {
-    public class SelfProfileViewModel : ViewModel
+    public class ProfileViewModel : ViewModel
     {
         #region Ctor
 
-        public SelfProfileViewModel()
+        public ProfileViewModel()
         {
-            var accountService = ServiceLocator.Locator.Get<IAccountService>();
-            accountService.Account.WatchUserId = accountService.Account.UserId;
 
-            SettingsCommand = new RelayCommand(SettingsCommandExecute, () =>!IsLoading);
-            MyRepliesCommand = new RelayCommand(MyRepliesCommandExecute, () => !IsLoading);
-            ChangeImageCommand = new RelayCommand(ChangeImageCommandExecute, () => !IsLoading);
-           
-
+            LinkCommand = new RelayCommand(SettingsCommandExecute, () => !IsLoading);
+            VoteForAdvantagesCommand = new RelayCommand(OnVoteForAdvantagesCommandExecute, () => !IsLoading);
+            VoteForDisadvantagesCommand = new RelayCommand(OnVoteForDisadvantagesCommandExecute, () => !IsLoading);
+            RepliesCommand = new RelayCommand(OnRepliesCommandExecute, () => !IsLoading);
         }
 
-        
-        private async void  ChangeImageCommandExecute()
+        private void OnRepliesCommandExecute()
         {
-            var accountService = ServiceLocator.Locator.Get<IAccountService>();
-            var imageService = ServiceLocator.Locator.Get<IImageService>();
-            StorageFile file = await imageService.PickPhoto();
-            IsLoading = true;
-            UserImage = await imageService.SetImage(accountService.Account.UserId, file);
-            IsLoading = false;
+            NavigationService.Navigate(ViewLocator.Replies);
         }
 
-        public async override void OnNavigatedTo(NavigationEventArgs e)
+        private void OnVoteForDisadvantagesCommandExecute()
+        {
+            NavigationService.Navigate(ViewLocator.Drawbacks);
+        }
+
+        private void OnVoteForAdvantagesCommandExecute()
+        {
+            NavigationService.Navigate(ViewLocator.Benefits);
+        }
+
+
+        public override async void OnNavigatedTo(NavigationEventArgs e)
         {
 
             await Init();
         }
         private async Task Init()
         {
-           
+
             var messageService = ServiceLocator.Locator.Get<IMessageService>();
             var accountService = ServiceLocator.Locator.Get<IAccountService>();
             var linkService = ServiceLocator.Locator.Get<ISqlLinkService>();
@@ -73,10 +63,10 @@ namespace Button.ViewModels
                 return;
             }
             IsLoading = true;
-            Title = await linkService.GetTitle(accountService.Account.UserId);
-            UserImage = await imageService.GetPrivateImage(accountService.Account.UserId);
+            Title = await linkService.GetTitle(accountService.Account.WatchUserId);
+            UserImage = await imageService.GetPrivateImage(accountService.Account.WatchUserId);
             IsLoading = false;
-            
+
         }
 
         private void SettingsCommandExecute()
@@ -86,7 +76,7 @@ namespace Button.ViewModels
 
         private void MyRepliesCommandExecute()
         {
-            NavigationService.Navigate(ViewLocator.Replies);
+            throw new NotImplementedException();
         }
 
 
@@ -96,12 +86,12 @@ namespace Button.ViewModels
 
         protected override void OnIsLoadingChanged()
         {
-            SettingsCommand.RaiseCanExecuteChanged();
+            LinkCommand.RaiseCanExecuteChanged();
 
-            MyRepliesCommand.RaiseCanExecuteChanged();
-
+            VoteForAdvantagesCommand.RaiseCanExecuteChanged();
+            RepliesCommand.RaiseCanExecuteChanged();
             GoBackCommand.RaiseCanExecuteChanged();
-            ChangeImageCommand.RaiseCanExecuteChanged();
+            VoteForDisadvantagesCommand.RaiseCanExecuteChanged();
         }
 
         #endregion
@@ -128,7 +118,7 @@ namespace Button.ViewModels
         public string Title
         {
             get { return _title; }
-            set { Set(ref _title, value);  }
+            set { Set(ref _title, value); }
         }
         public ImageSource UserImage
         {
@@ -137,21 +127,13 @@ namespace Button.ViewModels
         }
 
 
-        public RelayCommand SettingsCommand { get; set; }
+        public RelayCommand LinkCommand { get; set; }
 
-        public RelayCommand MyRepliesCommand { get; set; }
-        public RelayCommand ChangeImageCommand { get; set; }
-        
+        public RelayCommand VoteForAdvantagesCommand { get; set; }
+        public RelayCommand VoteForDisadvantagesCommand { get; set; }
 
+        public RelayCommand RepliesCommand { get; set; }
         #endregion
 
-        #region Private methods
-
-        
-
-       
-
-        #endregion
     }
 }
-

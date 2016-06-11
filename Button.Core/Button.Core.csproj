@@ -116,6 +116,7 @@
     <Compile Include="DependencyInjection\TypeBinding.cs" />
     <Compile Include="DependencyInjection\TypeBindingBase.cs" />
     <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="MessageServices\DialogCommand.cs" />
     <Compile Include="MessageServices\IMessageService.cs" />
     <Compile Include="MessageServices\MessageService.cs" />

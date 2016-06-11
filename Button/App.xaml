@@ -32,6 +32,7 @@
             <converters:BooleanToNegationConverter x:Key="BooleanToNegationConverter" />
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converters:StringToMd5Converter x:Key="StringToMd5Converter" />
+            <converters:SelectionChangedConverter x:Key="SelectionChangedConverter" />
             <viewModels:ViewModelLocator x:Key="ViewModelLocator" />
 
 

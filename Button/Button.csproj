@@ -107,6 +107,9 @@
     <None Include="Service References\SqlReference\Service2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\SqlReference\Service3.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account\Account.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Converters\BinaryImageConverter.cs" />
     <Compile Include="Converters\BooleanToNegationConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\SelectionChangedConverter.cs" />
     <Compile Include="Converters\StringToMd5Converter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -128,13 +132,22 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Services\FileStorage.cs" />
+    <Compile Include="Services\ImagesService.cs" />
     <Compile Include="SqlLinkService\ISqlLinkService.cs" />
     <Compile Include="SqlLinkService\LinkService.cs" />
     <Compile Include="ViewLocator.cs" />
+    <Compile Include="ViewModels\AccountActivationViewModel.cs" />
+    <Compile Include="ViewModels\BenefitsViewModel.cs" />
+    <Compile Include="ViewModels\DrawbacksViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainSearchViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\RepliesViewModel.cs" />
     <Compile Include="ViewModels\SelfProfileViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SignUpViewModel.cs" />
     <Compile Include="ViewModels\ViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\AccountActivationSearch.xaml.cs">
@@ -164,11 +177,17 @@
     <Compile Include="Views\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RepliesPage.xaml.cs">
+      <DependentUpon>RepliesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SelfProfilePage.xaml.cs">
       <DependentUpon>SelfProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SignUpPage.xaml.cs">
+      <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +200,7 @@
     <Content Include="Assets\avatar.png" />
     <Content Include="Assets\back.png" />
     <Content Include="Assets\background.png" />
+    <Content Include="Assets\default_avatar.png" />
     <Content Include="Assets\dislike.png" />
     <Content Include="Assets\edit.png" />
     <Content Include="Assets\envelope.png" />
@@ -263,6 +283,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\RepliesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SelfProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -270,6 +294,10 @@
     <Page Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SignUpPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -283,6 +311,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\SqlReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -78,7 +78,7 @@
           <Property Name="IsStudent" Type="bit" Nullable="false" />
           <Property Name="ProfilePhoto" Type="varbinary(max)" />
           <Property Name="AccountID" Type="nvarchar" MaxLength="128" />
-          <Property Name="GroupID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="GroupID" Type="nvarchar" MaxLength="128" />
           <Property Name="DetailsID" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <Association Name="FK_eduprogram_faculty">
@@ -166,7 +166,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_group">
-          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="group" Type="Self.group" Multiplicity="0..1" />
           <End Role="user" Type="Self.user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="group">
@@ -307,7 +307,7 @@
           <Property Name="IsStudent" Type="Boolean" Nullable="false" />
           <Property Name="ProfilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="AccountID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="GroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="GroupID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DetailsID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="account" Relationship="Self.FK_user_account" FromRole="user" ToRole="account" />
           <NavigationProperty Name="details" Relationship="Self.FK_user_details1" FromRole="user" ToRole="details" />
@@ -364,7 +364,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_user_group">
-          <End Role="group" Type="Self.group" Multiplicity="1" />
+          <End Role="group" Type="Self.group" Multiplicity="0..1" />
           <End Role="user" Type="Self.user" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="group">

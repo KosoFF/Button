@@ -17,8 +17,8 @@ namespace Button.SqlReference {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="account", Namespace="http://schemas.datacontract.org/2004/07/SqlService")]
-    public partial class account : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Runtime.Serialization.DataContractAttribute(Name="AccountInformation", Namespace="http://schemas.datacontract.org/2004/07/SqlService")]
+    public partial class AccountInformation : object, System.ComponentModel.INotifyPropertyChanged {
         
         private string AccountIDField;
         
@@ -30,9 +30,9 @@ namespace Button.SqlReference {
         
         private System.Nullable<System.DateTime> RegistrationTimeField;
         
-        private string UsernameField;
+        private string UserIdField;
         
-        private System.Collections.ObjectModel.ObservableCollection<Button.SqlReference.user> userField;
+        private string UsernameField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string AccountID {
@@ -100,6 +100,19 @@ namespace Button.SqlReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserId {
+            get {
+                return this.UserIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserIdField, value) != true)) {
+                    this.UserIdField = value;
+                    this.RaisePropertyChanged("UserId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Username {
             get {
                 return this.UsernameField;
@@ -108,19 +121,6 @@ namespace Button.SqlReference {
                 if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
                     this.UsernameField = value;
                     this.RaisePropertyChanged("Username");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.ObjectModel.ObservableCollection<Button.SqlReference.user> user {
-            get {
-                return this.userField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.userField, value) != true)) {
-                    this.userField = value;
-                    this.RaisePropertyChanged("user");
                 }
             }
         }
@@ -346,6 +346,126 @@ namespace Button.SqlReference {
                 if ((object.ReferenceEquals(this.reply1Field, value) != true)) {
                     this.reply1Field = value;
                     this.RaisePropertyChanged("reply1");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="account", Namespace="http://schemas.datacontract.org/2004/07/SqlService")]
+    public partial class account : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string AccountIDField;
+        
+        private string EmailField;
+        
+        private System.Nullable<bool> EmailConfirmedField;
+        
+        private string PasswordHashField;
+        
+        private System.Nullable<System.DateTime> RegistrationTimeField;
+        
+        private string UsernameField;
+        
+        private System.Collections.ObjectModel.ObservableCollection<Button.SqlReference.user> userField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AccountID {
+            get {
+                return this.AccountIDField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AccountIDField, value) != true)) {
+                    this.AccountIDField = value;
+                    this.RaisePropertyChanged("AccountID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> EmailConfirmed {
+            get {
+                return this.EmailConfirmedField;
+            }
+            set {
+                if ((this.EmailConfirmedField.Equals(value) != true)) {
+                    this.EmailConfirmedField = value;
+                    this.RaisePropertyChanged("EmailConfirmed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PasswordHash {
+            get {
+                return this.PasswordHashField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PasswordHashField, value) != true)) {
+                    this.PasswordHashField = value;
+                    this.RaisePropertyChanged("PasswordHash");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> RegistrationTime {
+            get {
+                return this.RegistrationTimeField;
+            }
+            set {
+                if ((this.RegistrationTimeField.Equals(value) != true)) {
+                    this.RegistrationTimeField = value;
+                    this.RaisePropertyChanged("RegistrationTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username {
+            get {
+                return this.UsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<Button.SqlReference.user> user {
+            get {
+                return this.userField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.userField, value) != true)) {
+                    this.userField = value;
+                    this.RaisePropertyChanged("user");
                 }
             }
         }
@@ -915,126 +1035,6 @@ namespace Button.SqlReference {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AccountInformation", Namespace="http://schemas.datacontract.org/2004/07/SqlService")]
-    public partial class AccountInformation : object, System.ComponentModel.INotifyPropertyChanged {
-        
-        private string AccountIDField;
-        
-        private string EmailField;
-        
-        private System.Nullable<bool> EmailConfirmedField;
-        
-        private string PasswordHashField;
-        
-        private System.Nullable<System.DateTime> RegistrationTimeField;
-        
-        private string UserIdField;
-        
-        private string UsernameField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AccountID {
-            get {
-                return this.AccountIDField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AccountIDField, value) != true)) {
-                    this.AccountIDField = value;
-                    this.RaisePropertyChanged("AccountID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Email {
-            get {
-                return this.EmailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
-                    this.EmailField = value;
-                    this.RaisePropertyChanged("Email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<bool> EmailConfirmed {
-            get {
-                return this.EmailConfirmedField;
-            }
-            set {
-                if ((this.EmailConfirmedField.Equals(value) != true)) {
-                    this.EmailConfirmedField = value;
-                    this.RaisePropertyChanged("EmailConfirmed");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string PasswordHash {
-            get {
-                return this.PasswordHashField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PasswordHashField, value) != true)) {
-                    this.PasswordHashField = value;
-                    this.RaisePropertyChanged("PasswordHash");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> RegistrationTime {
-            get {
-                return this.RegistrationTimeField;
-            }
-            set {
-                if ((this.RegistrationTimeField.Equals(value) != true)) {
-                    this.RegistrationTimeField = value;
-                    this.RaisePropertyChanged("RegistrationTime");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UserId {
-            get {
-                return this.UserIdField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserIdField, value) != true)) {
-                    this.UserIdField = value;
-                    this.RaisePropertyChanged("UserId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Username {
-            get {
-                return this.UsernameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
-                    this.UsernameField = value;
-                    this.RaisePropertyChanged("Username");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SqlReference.IWebService")]
     public interface IWebService {
@@ -1073,7 +1073,7 @@ namespace Button.SqlReference {
     public interface IService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SignUp", ReplyAction="http://tempuri.org/IService/SignUpResponse")]
-        System.Threading.Tasks.Task<bool> SignUpAsync(Button.SqlReference.account manager);
+        System.Threading.Tasks.Task<bool> SignUpAsync(Button.SqlReference.AccountInformation account);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetTitle", ReplyAction="http://tempuri.org/IService/GetTitleResponse")]
         System.Threading.Tasks.Task<string> GetTitleAsync(string user);
@@ -1084,8 +1084,38 @@ namespace Button.SqlReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetPhoto", ReplyAction="http://tempuri.org/IService/GetPhotoResponse")]
         System.Threading.Tasks.Task<byte[]> GetPhotoAsync(string user);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetUsersDictionary", ReplyAction="http://tempuri.org/IService/GetUsersDictionaryResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetUsersDictionaryAsync();
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/Login", ReplyAction="http://tempuri.org/IService/LoginResponse")]
         System.Threading.Tasks.Task<Button.SqlReference.AccountInformation> LoginAsync(string login, string passwordHash);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetPositiveReplies", ReplyAction="http://tempuri.org/IService/GetPositiveRepliesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetPositiveRepliesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetNegativeReplies", ReplyAction="http://tempuri.org/IService/GetNegativeRepliesResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetNegativeRepliesAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/AddReplies", ReplyAction="http://tempuri.org/IService/AddRepliesResponse")]
+        System.Threading.Tasks.Task<bool> AddRepliesAsync(string sender, string reciever, bool isBad, System.Collections.Generic.Dictionary<string, string> replies);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetRepliesCount", ReplyAction="http://tempuri.org/IService/GetRepliesCountResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetRepliesCountAsync(string recepient);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetMobilePhone", ReplyAction="http://tempuri.org/IService/GetMobilePhoneResponse")]
+        System.Threading.Tasks.Task<string> GetMobilePhoneAsync(string userid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetEmail", ReplyAction="http://tempuri.org/IService/GetEmailResponse")]
+        System.Threading.Tasks.Task<string> GetEmailAsync(string userid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetMobilePhone", ReplyAction="http://tempuri.org/IService/SetMobilePhoneResponse")]
+        System.Threading.Tasks.Task SetMobilePhoneAsync(string userid, string mobilePhone);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/SetEmail", ReplyAction="http://tempuri.org/IService/SetEmailResponse")]
+        System.Threading.Tasks.Task SetEmailAsync(string userid, string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService/GetFreeUsersDictionary", ReplyAction="http://tempuri.org/IService/GetFreeUsersDictionaryResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetFreeUsersDictionaryAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1131,8 +1161,8 @@ namespace Button.SqlReference {
                 base(binding, remoteAddress) {
         }
         
-        public System.Threading.Tasks.Task<bool> SignUpAsync(Button.SqlReference.account manager) {
-            return base.Channel.SignUpAsync(manager);
+        public System.Threading.Tasks.Task<bool> SignUpAsync(Button.SqlReference.AccountInformation account) {
+            return base.Channel.SignUpAsync(account);
         }
         
         public System.Threading.Tasks.Task<string> GetTitleAsync(string user) {
@@ -1147,8 +1177,48 @@ namespace Button.SqlReference {
             return base.Channel.GetPhotoAsync(user);
         }
         
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetUsersDictionaryAsync() {
+            return base.Channel.GetUsersDictionaryAsync();
+        }
+        
         public System.Threading.Tasks.Task<Button.SqlReference.AccountInformation> LoginAsync(string login, string passwordHash) {
             return base.Channel.LoginAsync(login, passwordHash);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetPositiveRepliesAsync() {
+            return base.Channel.GetPositiveRepliesAsync();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetNegativeRepliesAsync() {
+            return base.Channel.GetNegativeRepliesAsync();
+        }
+        
+        public System.Threading.Tasks.Task<bool> AddRepliesAsync(string sender, string reciever, bool isBad, System.Collections.Generic.Dictionary<string, string> replies) {
+            return base.Channel.AddRepliesAsync(sender, reciever, isBad, replies);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetRepliesCountAsync(string recepient) {
+            return base.Channel.GetRepliesCountAsync(recepient);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetMobilePhoneAsync(string userid) {
+            return base.Channel.GetMobilePhoneAsync(userid);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetEmailAsync(string userid) {
+            return base.Channel.GetEmailAsync(userid);
+        }
+        
+        public System.Threading.Tasks.Task SetMobilePhoneAsync(string userid, string mobilePhone) {
+            return base.Channel.SetMobilePhoneAsync(userid, mobilePhone);
+        }
+        
+        public System.Threading.Tasks.Task SetEmailAsync(string userid, string email) {
+            return base.Channel.SetEmailAsync(userid, email);
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.Dictionary<string, string>> GetFreeUsersDictionaryAsync() {
+            return base.Channel.GetFreeUsersDictionaryAsync();
         }
         
         public virtual System.Threading.Tasks.Task OpenAsync() {

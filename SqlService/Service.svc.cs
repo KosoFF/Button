@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
@@ -24,10 +25,41 @@ namespace SqlService
         #endregion
 
         #region Login
-        public bool SignUp(account userInsert)
+        public bool SignUp(AccountInformation acc)
         {
-            throw new NotImplementedException();
 
+            try
+            {
+                using (var context = new courseworkEntities())
+                {
+                    if (acc == null)
+                        return true;
+                    var user = context.user.First(a => a.UserID == acc.UserId);
+                    if (user != null)
+                    {
+                        var account = new account()
+                        {
+                            AccountID = Guid.NewGuid().ToString("D"),
+                            Email = acc.Email,
+                            PasswordHash = acc.PasswordHash,
+                            RegistrationTime = DateTime.Now,
+                            EmailConfirmed = false,
+                            Username = acc.Username
+                        };
+                        user.AccountID = account.AccountID;
+                        context.account.AddOrUpdate(account);
+                        context.user.AddOrUpdate(user);
+                        context.SaveChanges();
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("Service.Login: " + ex.Message);
+                return true;
+            }
             //using (var authData = new AirportEntities())
             //{
             //    try
@@ -130,15 +162,214 @@ namespace SqlService
                 {
                      context.user.First(a => a.UserID == user).ProfilePhoto = photo;
                     context.SaveChanges();
-                    return true;
+                    return false;
                 }
             }
             catch (Exception ex)
             {
                 Debug.Print("Service.GetPhoto: " + ex.Message);
-                return false;
+                return true;
             }
         }
+
+        public Dictionary<string, string> GetUsersDictionary()
+        {
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+
+                    return c.user.ToDictionary(user => user.UserID,(user) => (user.IsStudent ? "Студент:" : "Преподаватель:") +
+                                    user.LastName + " " + user.FirstName + " " + user.MiddleName);
+                    
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("GetUsersDictionaryError:" + e.Message);
+                return null;
+            }
+        }
+
+        public Dictionary<string, string> GetFreeUsersDictionary()
+        {
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+
+                    return c.user.Where(a=>a.AccountID==null).ToDictionary(user => user.UserID, (user) => (user.IsStudent ? "Студент:" : "Преподаватель:") +
+                                     user.LastName + " " + user.FirstName + " " + user.MiddleName);
+
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("GetUsersDictionaryError:" + e.Message);
+                return null;
+            }
+        }
+
+        public Dictionary<string, string> GetPositiveReplies()
+        {
+
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+
+                    return c.replyCollection.Where(t=>t.IsBad==false).ToDictionary(t=>t.ReplyCollectionID, t=>t.Text);
+
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("RepliesError:" + e.Message);
+                return null;
+            }
+        }
+        public Dictionary<string, string> GetNegativeReplies()
+        {
+
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+
+                    return c.replyCollection.Where(t => t.IsBad).ToDictionary(t => t.ReplyCollectionID, t => t.Text);
+
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("RepliesError:" + e.Message);
+                return null;
+            }
+        }
+
+        public bool AddReplies(string sender, string reciever, bool isBad, Dictionary<string, string> replies)
+        {
+            try
+            {
+                using (var context = new courseworkEntities())
+                {
+                    context.reply.RemoveRange(context.reply.Where(a => a.Recipient == reciever && a.Sender == sender && a.replyCollection.IsBad==isBad));
+                    context.reply.AddRange(replies.Select(a=>new reply()
+                    {
+                        ReplyID = Guid.NewGuid().ToString("D"),
+                        ReplyCollectionID = a.Key,
+                        Recipient = reciever,
+                        Sender = sender
+                    }));
+                    context.SaveChanges();
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print("Service.GetPhoto: " + ex.Message);
+                return true;
+            }
+        }
+
+        public Dictionary<string, string> GetRepliesCount(string recepient)
+        {
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+
+                   var t = c.reply.Where(reply => reply.Recipient == recepient).GroupBy(reply => reply.ReplyCollectionID)
+                        .Select(group => new {
+                            Key = c.replyCollection.FirstOrDefault(a=>a.ReplyCollectionID==group.Key).Text,
+                            Value = group.Count().ToString()
+                            }).ToDictionary(temp=>temp.Key, temp=>temp.Value);
+                    return t;
+
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("RepliesError:" + e.Message);
+                return null;
+            }
+        }
+
+        public string GetMobilePhone(string userid)
+        {
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+
+                    return c.user.FirstOrDefault(u => u.UserID == userid)?.details.PhoneNumber;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("RepliesError:" + e.Message);
+                return null;
+            }
+        }
+
+
+        public string GetEmail(string userid)
+        {
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+
+                    return c.user.FirstOrDefault(u => u.UserID == userid)?.details.ConnectionEmail;
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("RepliesError:" + e.Message);
+                return null;
+            }
+        }
+
+
+        public void SetMobilePhone(string userid, string mobilePhone)
+        {
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+                   var t =  c.user.FirstOrDefault(u => u.UserID == userid)?.details;
+                    t.PhoneNumber = mobilePhone;
+                    c.details.AddOrUpdate(t);
+                    c.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("RepliesError:" + e.Message);
+                
+            }
+        }
+
+
+        public void SetEmail(string userid, string email)
+        {
+            try
+            {
+                using (var c = new courseworkEntities())
+                {
+                    var t = c.user.FirstOrDefault(u => u.UserID == userid)?.details;
+                    t.ConnectionEmail = email;
+                    c.details.AddOrUpdate(t);
+                    c.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.Print("RepliesError:" + e.Message);
+
+            }
+        }
+        
 
     }
 }

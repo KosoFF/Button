@@ -5,7 +5,8 @@
     xmlns:local="using:Button.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    DataContext="{Binding ProfileViewModel, Source={StaticResource ViewModelLocator}}">
 
     <ScrollViewer 
         VerticalScrollBarVisibility="Auto">
@@ -43,7 +44,8 @@
     		    Background="#006df0"
                 BorderBrush="#006df0"
                 BorderThickness="0.5"
-                />
+                 IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding VoteForAdvantagesCommand}"/>
 
             <Button
                 Grid.Row="6"
@@ -58,7 +60,8 @@
     		    Background="#d80027"
                 BorderBrush="#d80027"
                 BorderThickness="0.5"
-                />
+                 IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding VoteForDisadvantagesCommand}"/>
 
             <Button
                 Grid.Row="8"
@@ -73,16 +76,19 @@
     		    Background="Transparent"
                 BorderBrush="Black"
                 BorderThickness="0.5"
-                />
-
+                 IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding RepliesCommand}"/>
+            <Button  Margin="10"
+                Height="30"
+                     Background="White"
+                     IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding GoBackCommand}">
             <Image 
-                Grid.Row="0"
-                Source="../Assets/back.png"
-                Grid.Column="0"
-                Margin="10"
-                Height="30"/>
-
-            <Image 
+                
+                Source="../Assets/back.png"/>
+            </Button>
+            
+        <Image 
                 Grid.Row="4"
                 Source="../Assets/like.png"
                 Grid.Column="0"
@@ -139,11 +145,11 @@
                 VerticalAlignment="Stretch"
                 Margin="10"
                 Grid.Row="1"
-                Height="300"
-                Width="300">
+                Height="Auto"
+                Width="Auto">
                 <Rectangle.Fill>
                     <ImageBrush 
-                        ImageSource="../Assets/Снимок.PNG"/>
+                         ImageSource="{Binding UserImage, TargetNullValue=../Assets/default_avatar.png, FallbackValue=../Assets/default_avatar.png}"/>
                 </Rectangle.Fill>
             </Rectangle>
 
@@ -155,8 +161,11 @@
                 FontWeight="Medium"
                 FontSize="20"
                 HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                КИРИЛЛ СЕРГЕЕВИЧ ГОМЕНЮК
+                VerticalAlignment="Center"
+                Text="{Binding Title,
+                TargetNullValue=ФИО,
+                FallbackValue=ФИО}">
+                
             </TextBlock>
 
             <Button

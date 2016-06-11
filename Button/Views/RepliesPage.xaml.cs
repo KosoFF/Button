@@ -20,17 +20,11 @@ namespace Button.Views
     /// <summary>
     /// Пустая страница, которую можно использовать саму по себе или для перехода внутри фрейма.
     /// </summary>
-    public sealed partial class MainSearchPage : Page
+    public sealed partial class RepliesPage : Page
     {
-        public MainSearchPage()
+        public RepliesPage()
         {
             this.InitializeComponent();
-        }
-
-       
-        private void ListView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
-        {
-         
         }
     }
 }

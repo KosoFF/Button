@@ -5,8 +5,11 @@
     xmlns:local="using:Button.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:interop="using:Windows.UI.Xaml.Interop"
     mc:Ignorable="d"
      DataContext="{Binding MainSearchViewModel, Source={StaticResource ViewModelLocator}}">
+
 
     <Grid 
         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -19,8 +22,9 @@
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
-        
-        <SearchBox  
+
+        <TextBox  
+            
             Grid.Row="0"
             Grid.ColumnSpan="1"
             HorizontalAlignment="Stretch"
@@ -28,25 +32,41 @@
             Height="30"
             Margin="10 0 0 0"
             BorderThickness="1"
-            BorderBrush="Black"/>
+            BorderBrush="Black"
+            PlaceholderText="Search"
+            IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}" 
+            Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            >
+            
+        </TextBox>
         <Button Grid.Column="1"
             Margin="10"
             Height="35"
+                HorizontalContentAlignment="Stretch"
+                VerticalContentAlignment="Stretch"
+                Background="White"
             Grid.Row="0"
                 IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
                     Command="{Binding MyProfileCommand}">
         <Image 
-            
-            Source="../Assets/avatar.png"
+            Stretch="Fill"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Source="{Binding UserImage, TargetNullValue=../Assets/default_avatar.png, FallbackValue=../Assets/default_avatar.png}"
             />
         </Button>
-        <TextBox
+        <ListView
             Grid.Row="1"
+            Grid.Column="0"
             Grid.ColumnSpan="2"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             Margin="10 0 10 0"
-            BorderThickness="0"/>
+            BorderThickness="0"
+             IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}" ItemsSource="{Binding FilteredDictionary}" DisplayMemberPath="Value"
+                          SelectedValuePath="Key" SelectedValue="{Binding SelectedUserid, Mode=TwoWay}" 
+            >
+        </ListView>
     
     </Grid>
 </Page>

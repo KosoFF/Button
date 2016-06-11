@@ -26,6 +26,7 @@
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Button
+                Background="White"
                 Grid.Row="0"
                 Grid.Column="0"
                 Margin="10"
@@ -38,28 +39,14 @@
             <Button  Grid.Row="0" Grid.Column="2"
                 Margin="10"
                 Height="35"
+                     Background="White"
                     IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
                     Command="{Binding SettingsCommand}">
             <Image Source="../Assets/settings.png"/>
             </Button>
-
-            <Rectangle
-                RadiusX="150"
-                RadiusY="150"
-                Grid.Column="1"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Margin="10"
-                Grid.Row="1"
-                Height="300"
-                Width="300">
-                <Rectangle.Fill>
-                    <ImageBrush 
-                        ImageSource="{Binding SelfImage}"/>
-                </Rectangle.Fill>
-            </Rectangle>
-
-            <TextBlock Text="{Binding Title}"
+            <TextBlock Text="{Binding Title,
+                TargetNullValue=ФИО,
+                FallbackValue=ФИО}"
                 Grid.Row="0"
                 Grid.Column="1"
                 Foreground="Black"
@@ -70,18 +57,51 @@
                 VerticalAlignment="Center"/>
             <!--<Button Grid.Column="1"
                 Grid.Row="1"
+                    Grid.ColumnSpan="2"
                 Width="300"
                 Height="300"
                 Margin="10"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch">
-            <Image
+                VerticalAlignment="Stretch"
+                    Background="White"
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding ChangeImageCommand}">
+                <Image
                 Source="..\..\Assets\photo-camera.png"/>
             </Button>-->
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                       Margin="10"
+                     HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                        Background="White"
+                    HorizontalContentAlignment="Stretch" 
+        VerticalContentAlignment="Stretch"
+                    
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding ChangeImageCommand}">
+                <Button.Content>
+            <Rectangle
+                Grid.Row="1"
+                Grid.Column="1"
+                RadiusX="100"
+                RadiusY="100"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Margin="10"
+                >
+                <Rectangle.Fill>
+                    <ImageBrush 
+                        ImageSource="{Binding UserImage, TargetNullValue=../Assets/default_avatar.png, FallbackValue=../Assets/default_avatar.png}"/>
+                </Rectangle.Fill>
+            </Rectangle>
+                </Button.Content>
+            </Button>
+            
             
 
             <Button
-    		Grid.Row="7"
+    		Grid.Row="2"
     		Grid.ColumnSpan="3"
     		Content="Мои голосования"
     		HorizontalAlignment="Stretch"
@@ -93,10 +113,14 @@
     		Background="Transparent"
             BorderBrush="Black"
             BorderThickness="0.5"
+                 
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding MyRepliesCommand}"
             />
             <Button Grid.Row="2"
     		Margin="10"
-    		Height="30">
+    		Height="30"
+                    Background="White">
             <Image
     		Source="../Assets/edit.png"/>
             </Button>

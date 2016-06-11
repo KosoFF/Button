@@ -5,6 +5,7 @@
       <xsd:import schemaLocation="http://localhost:57806/Service.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:57806/Service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:57806/Service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SqlService" />
+      <xsd:import schemaLocation="http://localhost:57806/Service.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IWebService_GetUsers_InputMessage">
@@ -37,11 +38,71 @@
   <wsdl:message name="IService_GetPhoto_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPhotoResponse" />
   </wsdl:message>
+  <wsdl:message name="IService_GetUsersDictionary_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersDictionary" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetUsersDictionary_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersDictionaryResponse" />
+  </wsdl:message>
   <wsdl:message name="IService_Login_InputMessage">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
   <wsdl:message name="IService_Login_OutputMessage">
     <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetPositiveReplies_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPositiveReplies" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetPositiveReplies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPositiveRepliesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetNegativeReplies_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNegativeReplies" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetNegativeReplies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNegativeRepliesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_AddReplies_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddReplies" />
+  </wsdl:message>
+  <wsdl:message name="IService_AddReplies_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRepliesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetRepliesCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRepliesCount" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetRepliesCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRepliesCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetMobilePhone_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMobilePhone" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetMobilePhone_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMobilePhoneResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmail" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_SetMobilePhone_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetMobilePhone" />
+  </wsdl:message>
+  <wsdl:message name="IService_SetMobilePhone_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetMobilePhoneResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_SetEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetEmail" />
+  </wsdl:message>
+  <wsdl:message name="IService_SetEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetFreeUsersDictionary_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFreeUsersDictionary" />
+  </wsdl:message>
+  <wsdl:message name="IService_GetFreeUsersDictionary_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFreeUsersDictionaryResponse" />
   </wsdl:message>
   <wsdl:portType name="IWebService">
     <wsdl:operation name="GetUsers">
@@ -66,9 +127,49 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IService/GetPhoto" message="tns:IService_GetPhoto_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/GetPhotoResponse" message="tns:IService_GetPhoto_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUsersDictionary">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetUsersDictionary" message="tns:IService_GetUsersDictionary_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetUsersDictionaryResponse" message="tns:IService_GetUsersDictionary_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input wsaw:Action="http://tempuri.org/IService/Login" message="tns:IService_Login_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService/LoginResponse" message="tns:IService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPositiveReplies">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetPositiveReplies" message="tns:IService_GetPositiveReplies_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetPositiveRepliesResponse" message="tns:IService_GetPositiveReplies_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNegativeReplies">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetNegativeReplies" message="tns:IService_GetNegativeReplies_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetNegativeRepliesResponse" message="tns:IService_GetNegativeReplies_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddReplies">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/AddReplies" message="tns:IService_AddReplies_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/AddRepliesResponse" message="tns:IService_AddReplies_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRepliesCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetRepliesCount" message="tns:IService_GetRepliesCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetRepliesCountResponse" message="tns:IService_GetRepliesCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMobilePhone">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetMobilePhone" message="tns:IService_GetMobilePhone_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetMobilePhoneResponse" message="tns:IService_GetMobilePhone_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetEmail" message="tns:IService_GetEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetEmailResponse" message="tns:IService_GetEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetMobilePhone">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/SetMobilePhone" message="tns:IService_SetMobilePhone_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/SetMobilePhoneResponse" message="tns:IService_SetMobilePhone_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/SetEmail" message="tns:IService_SetEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/SetEmailResponse" message="tns:IService_SetEmail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFreeUsersDictionary">
+      <wsdl:input wsaw:Action="http://tempuri.org/IService/GetFreeUsersDictionary" message="tns:IService_GetFreeUsersDictionary_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IService/GetFreeUsersDictionaryResponse" message="tns:IService_GetFreeUsersDictionary_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService" type="tns:IService">
@@ -109,8 +210,98 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUsersDictionary">
+      <soap:operation soapAction="http://tempuri.org/IService/GetUsersDictionary" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <soap:operation soapAction="http://tempuri.org/IService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPositiveReplies">
+      <soap:operation soapAction="http://tempuri.org/IService/GetPositiveReplies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNegativeReplies">
+      <soap:operation soapAction="http://tempuri.org/IService/GetNegativeReplies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddReplies">
+      <soap:operation soapAction="http://tempuri.org/IService/AddReplies" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRepliesCount">
+      <soap:operation soapAction="http://tempuri.org/IService/GetRepliesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMobilePhone">
+      <soap:operation soapAction="http://tempuri.org/IService/GetMobilePhone" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmail">
+      <soap:operation soapAction="http://tempuri.org/IService/GetEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetMobilePhone">
+      <soap:operation soapAction="http://tempuri.org/IService/SetMobilePhone" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetEmail">
+      <soap:operation soapAction="http://tempuri.org/IService/SetEmail" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFreeUsersDictionary">
+      <soap:operation soapAction="http://tempuri.org/IService/GetFreeUsersDictionary" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

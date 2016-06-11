@@ -11,6 +11,9 @@
         public const string Profile = "Profile";
         public const string SelfProfile = "SelfProfile";
         public const string Settings = "Settings";
+        public const string Replies = "Replies";
+        public const string AccountActivation = "AccountActivation";
+        public const string SignUp = "SignUp";
 
 
     }

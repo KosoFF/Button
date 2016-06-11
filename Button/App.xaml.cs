@@ -18,6 +18,7 @@ using Button.Account;
 using Button.Core.DependencyInjection;
 using Button.Core.MessageServices;
 using Button.Core.Navigation;
+using Button.Services;
 using Button.SqlLinkService;
 using Button.Views;
 
@@ -34,12 +35,17 @@ namespace Button
         /// </summary>
         public App()
         {
-            
+           
             ServiceLocator.Locator.Bind<IMessageService, MessageService>(LifetimeMode.Singleton);
             ServiceLocator.Locator.Bind<INavigationService, NavigationService>(LifetimeMode.Singleton);
             ServiceLocator.Locator.Bind<IAccountService, AccountService>(LifetimeMode.Singleton);
             ServiceLocator.Locator.Bind<ISqlLinkService, LinkService>(LifetimeMode.Singleton);
-           
+            ServiceLocator.Locator.Bind<IFileStorage, FileStorage>(LifetimeMode.Singleton);
+
+            var fileStorage = new FileStorage();
+            var linkService = ServiceLocator.Locator.Get<ISqlLinkService>();
+
+            ServiceLocator.Locator.Bind<IImageService, IImageService>(new ImagesService(linkService, fileStorage));
             UnhandledException += OnUnhandledException;
 
             this.InitializeComponent();
@@ -62,7 +68,7 @@ namespace Button
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+               // this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
@@ -93,7 +99,7 @@ namespace Button
                 // параметр
                 var navigationService = ServiceLocator.Locator.Get<INavigationService>();
                 navigationService.Initialize(rootFrame, GetPageResolver());
-                rootFrame.Navigate(typeof(LoginPage), e.Arguments);
+                rootFrame.Navigate(typeof(Views.MainPage), e.Arguments);
             }
             // Обеспечение активности текущего окна
             Window.Current.Activate();
@@ -102,14 +108,17 @@ namespace Button
         private PageResolver GetPageResolver()
         {
             var dictionary = new Dictionary<string, Type>();
-            dictionary.Add(ViewLocator.Benefits, typeof(DrawbacksPage));
+            dictionary.Add(ViewLocator.Drawbacks, typeof(DrawbacksPage));
             dictionary.Add(ViewLocator.Login, typeof(LoginPage));
-            dictionary.Add(ViewLocator.Drawbacks, typeof(BenefitsPage));
+            dictionary.Add(ViewLocator.Benefits, typeof(BenefitsPage));
             dictionary.Add(ViewLocator.Main, typeof(Views.MainPage));
             dictionary.Add(ViewLocator.MainSearch, typeof(MainSearchPage));
             dictionary.Add(ViewLocator.Profile, typeof(ProfilePage));
             dictionary.Add(ViewLocator.SelfProfile, typeof(SelfProfilePage));
             dictionary.Add(ViewLocator.Settings, typeof(SettingsPage));
+            dictionary.Add(ViewLocator.Replies, typeof (RepliesPage));
+            dictionary.Add(ViewLocator.SignUp, typeof (SignUpPage));
+            dictionary.Add(ViewLocator.AccountActivation, typeof (AccountActivationSearch));
             return new PageResolver(dictionary);
         }
 

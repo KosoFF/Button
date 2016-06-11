@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Button.Account;
@@ -13,18 +12,15 @@ using Button.Core.Helpers;
 using Button.Core.MessageServices;
 using Button.Services;
 using Button.SqlLinkService;
-using Button.Views;
 
 namespace Button.ViewModels
 {
-    public class MainSearchViewModel : ViewModel
+   public class AccountActivationViewModel : ViewModel
     {
-        #region Ctor
-
-        public MainSearchViewModel()
+        public AccountActivationViewModel()
         {
 
-            MyProfileCommand = new RelayCommand(MyProfileCommandExecute, () => !IsLoading);
+            SearchCommand = new RelayCommand(SearchCommandExecute, () => !IsLoading);
 
 
         }
@@ -48,43 +44,25 @@ namespace Button.ViewModels
                 return;
             }
             IsLoading = true;
-            UserImage = await imageService.GetPrivateImage(accountService.Account.UserId);
-            UsersDictionary = await linkService.GetUsersDictionary();
+            UsersDictionary = await linkService.GetFreeUsersDictionary();
             FilteredDictionary = UsersDictionary;
             OnQuerySubmitted += (str) =>
             {
                 messageService.ShowAsync("Heello", str);
             };
-            
-
             IsLoading = false;
-
         }
-
-       
-
-
-        
-   
-
-
-
-        private void MyProfileCommandExecute()
+        private void SearchCommandExecute()
         {
-            NavigationService.Navigate(ViewLocator.SelfProfile);
+            Search(SearchText);
         }
-
-     
-
-        #endregion
-
         #region Base members
 
         protected override void OnIsLoadingChanged()
         {
-            
 
-            MyProfileCommand.RaiseCanExecuteChanged();
+
+            SearchCommand.RaiseCanExecuteChanged();
 
             GoBackCommand.RaiseCanExecuteChanged();
         }
@@ -109,14 +87,19 @@ namespace Button.ViewModels
             {
                 Set(ref _selectedUserid, value);
                 var accountService = ServiceLocator.Locator.Get<IAccountService>();
-                accountService.Account.WatchUserId = SelectedUserid;
+                accountService.Account = new Account.Account
+                {
+                    UserId = SelectedUserid,
+                    WatchUserId = SelectedUserid
+                };
                 OnSelectionChanged();
             }
         }
 
         private void OnSelectionChanged()
         {
-            NavigationService.Navigate(ViewLocator.Profile);
+
+            NavigationService.Navigate(ViewLocator.SignUp);
 
 
         }
@@ -133,7 +116,7 @@ namespace Button.ViewModels
         }
         public ImageSource UserImage
         {
-            get {return _userImage;}
+            get { return _userImage; }
             set { Set(ref _userImage, value); }
         }
         public string SearchText
@@ -152,7 +135,7 @@ namespace Button.ViewModels
 
         public event EventHandler<string> SearchTextChanged;
         public Action<string> OnQuerySubmitted { get; set; }
-        public RelayCommand MyProfileCommand { get; set; }
+        public RelayCommand SearchCommand { get; set; }
 
 
 
@@ -162,32 +145,27 @@ namespace Button.ViewModels
         #region Private methods
         private async void Search(string searchQuery)
         {
-            
-                FilteredDictionary = new Dictionary<string, string>();
-                if (string.IsNullOrEmpty(searchQuery))
+
+            FilteredDictionary = new Dictionary<string, string>();
+            if (string.IsNullOrEmpty(searchQuery))
+            {
+                foreach (var user in UsersDictionary)
                 {
-                    foreach (var user in UsersDictionary)
-                    {
                     FilteredDictionary.Add(user.Key, user.Value);
-                    }
                 }
-                else
+            }
+            else
+            {
+                foreach (var user in UsersDictionary.Where(c => !string.IsNullOrEmpty(c.Value) && c.Value.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    foreach (var user in UsersDictionary.Where(c => !string.IsNullOrEmpty(c.Value) && c.Value.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0))
-                    {
-                        FilteredDictionary.Add(user.Key, user.Value);
-                    }
+                    FilteredDictionary.Add(user.Key, user.Value);
                 }
+            }
             var t = FilteredDictionary;
             FilteredDictionary = new Dictionary<string, string>();
             FilteredDictionary = t;
 
         }
-
-
-
-
         #endregion
-
     }
 }

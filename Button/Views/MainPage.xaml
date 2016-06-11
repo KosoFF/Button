@@ -19,9 +19,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-
         
-
         <Image
             Stretch="Fill"
     		Source="../Assets/background.png"
@@ -35,35 +33,7 @@
     		HorizontalAlignment="Center"
     		VerticalAlignment="Bottom"
             />
-
-        <Button
-    		        Grid.Row="0"
-    		        Grid.ColumnSpan="3"
-    		        Content="Регистрация"
-    		        HorizontalAlignment="Center"
-    		        VerticalAlignment="Top"
-                    Foreground="#ffffff"
-                    Height="40"
-                    Width="260"
-    		        FontFamily="roboto"
-    		        FontSize="20"
-    		        FontWeight="Light"
-                    Background="Transparent"
-                    BorderBrush="#ffffff"
-                    BorderThickness="1"
-                    Margin="5"
-                     IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding SignUpCommand}"/>
-        <Image 
-    		Grid.Column="2"
-    		Margin="5"
-    		Source="../Assets/info.png"
-    		HorizontalAlignment="Right"
-    		VerticalAlignment="Top"
-            Height="20"
-            Opacity="0.3"
-            />
-
+        
         <StackPanel 
             Grid.Row="1"
     		Grid.ColumnSpan="3"
@@ -76,7 +46,7 @@
                 </Grid.RowDefinitions>
 
                 <Button
-                    Content="Вход для студентов"
+                    Content="Вход"
     		        HorizontalAlignment="Center"
     		        VerticalAlignment="Center"
                     Foreground="#ffffff"
@@ -96,7 +66,7 @@
                 <Button
     		        Grid.Row="1"
     		        Grid.ColumnSpan="3"
-    		        Content="Вход для преподавателей"
+    		        Content="Регистрация"
     		        HorizontalAlignment="Center"
     		        VerticalAlignment="Center"
                     Foreground="#ffffff"
@@ -109,8 +79,8 @@
                     BorderBrush="#ffffff"
                     BorderThickness="1"
                     Margin="5"
-                     IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding EnterCommand}"/>
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                    Command="{Binding SignUpCommand}"/>
                 
             </Grid>
         </StackPanel>
@@ -152,9 +122,7 @@
     		        Source="../Assets/envelope.png"
     		        HorizontalAlignment="Center"
     		        VerticalAlignment="Center"
-                    Opacity="0.3"
-                    />
-
+                    Opacity="0.3" />
             </Grid>
         </StackPanel>
     </Grid>

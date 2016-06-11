@@ -74,14 +74,19 @@
             IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
                     Command="{Binding LogoutCommand}"/>
 
-        <Button Margin="10"
-                Background="White"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding GoBackCommand}">
-            <Image 
-    		Source="../Assets/back.png"/>
+        <Button
+            Background="White"
+            Width="50"
+            Height="50"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+            Command="{Binding GoBackCommand}">
+            <Image
+                Height="35"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="../Assets/back.png"/>
         </Button>
         <Image
     		Source="../Assets/garbage.png"

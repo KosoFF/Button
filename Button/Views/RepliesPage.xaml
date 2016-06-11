@@ -34,8 +34,8 @@
                 FontWeight="Medium"
                 FontSize="20"
                 Background="Transparent" 
-             IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}" 
-                  ItemsSource="{Binding RepliesDictionary}" 
+                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}" 
+                ItemsSource="{Binding RepliesDictionary}" 
                   >
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -63,9 +63,11 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Background="White"
-                Content="Принять"
-                 IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding GoBackCommand}"
+                Content="Готово"
+                FontFamily="Roboto"
+                FontWeight="Light"
+                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                Command="{Binding GoBackCommand}"
                 ></Button>
        
     </Grid>

@@ -34,16 +34,6 @@
     		VerticalAlignment="Bottom"
             />
 
-        <Image 
-    		Grid.Column="2"
-    		Margin="5"
-    		Source="../Assets/info.png"
-    		HorizontalAlignment="Right"
-    		VerticalAlignment="Top"
-            Height="20"
-            Opacity="0.3"
-            />
-
         <StackPanel 
             Grid.Row="1"
     		Grid.ColumnSpan="3"
@@ -54,9 +44,22 @@
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
-                
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Text="Вход"
+                    Foreground="#ffffff"
+                    Height="40"
+                    Width="260"
+    		        FontFamily="roboto"
+    		        FontSize="20"
+    		        FontWeight="Light"
+                    Margin="5"/>
+
                 <TextBox
+                    Grid.Row="1"
                     HorizontalAlignment="Center"
     		        VerticalAlignment="Center"
                     Foreground="#ffffff"
@@ -74,7 +77,7 @@
                     />
 
                 <PasswordBox
-                    Grid.Row="1"
+                    Grid.Row="2"
     		        Grid.ColumnSpan="3"
                     HorizontalAlignment="Center"
     		        VerticalAlignment="Center"
@@ -94,7 +97,7 @@
 
                 <Button
                     Content="Войти"
-    		        Grid.Row="2"
+    		        Grid.Row="3"
     		        Grid.ColumnSpan="3"
                     HorizontalAlignment="Center"
     		        VerticalAlignment="Center"
@@ -110,51 +113,7 @@
                     Margin="5"
                     IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
                     Command="{Binding LoginCommand}"/>
-                    
-            </Grid>
-        </StackPanel>
-        
-        <StackPanel
-            Width="240"
-            Grid.Row="1"
-    		Grid.ColumnSpan="3"
-            Grid.Column="0"
-            VerticalAlignment="Bottom"
-            HorizontalAlignment="Center">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="8*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
 
-                <Button
-                    Grid.Column="0"
-                    Content="связаться с разработчиком"
-    		        HorizontalAlignment="Center"
-    		        VerticalAlignment="Center"
-                    Foreground="#ffffff"
-                    Opacity="0.3"
-                    Height="30"
-                    Width="225"
-    		        FontFamily="roboto"
-    		        FontSize="16"
-    		        FontWeight="Light"
-                    Background="Transparent"
-                    BorderThickness="0"
-                    Margin="0 0 0 5"
-                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding LinkCommand}"
-                    />
-
-                <Image 
-    		        Grid.Column="1"
-    		        Margin="0 0 0 2"
-                    Height="20"
-    		        Source="../Assets/envelope.png"
-    		        HorizontalAlignment="Center"
-    		        VerticalAlignment="Center"
-                    Opacity="0.3"
-                    />
             </Grid>
         </StackPanel>
     </Grid>

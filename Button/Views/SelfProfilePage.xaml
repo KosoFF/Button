@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding SelfProfileViewModel, Source={StaticResource ViewModelLocator}}">
-    
+
     <ScrollViewer 
         VerticalScrollBarVisibility="Auto">
 
@@ -29,21 +29,24 @@
                 Background="White"
                 Grid.Row="0"
                 Grid.Column="0"
-                Margin="10"
-                Height="30"
-                 IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding GoBackCommand}">
-            <Image Source="../Assets/back.png"/>
-             </Button>
-            
-            <Button  Grid.Row="0" Grid.Column="2"
-                Margin="10"
-                Height="35"
-                     Background="White"
-                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding SettingsCommand}">
-            <Image Source="../Assets/settings.png"/>
+                Height="50"
+                Width="50 "
+                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                Command="{Binding GoBackCommand}">
+                <Image Source="../Assets/back.png"/>
             </Button>
+
+            <Button
+                Grid.Row="0" 
+                Grid.Column="2"
+                Height="50"
+                Width="50 "
+                Background="White"
+                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                Command="{Binding SettingsCommand}">
+                <Image Source="../Assets/settings.png"/>
+            </Button>
+
             <TextBlock Text="{Binding Title,
                 TargetNullValue=ФИО,
                 FallbackValue=ФИО}"
@@ -69,60 +72,63 @@
                 <Image
                 Source="..\..\Assets\photo-camera.png"/>
             </Button>-->
-            <Button Grid.Row="1"
-                    Grid.Column="1"
-                       Margin="10"
-                     HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                        Background="White"
-                    HorizontalContentAlignment="Stretch" 
-        VerticalContentAlignment="Stretch"
-                    
-                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding ChangeImageCommand}">
-                <Button.Content>
-            <Rectangle
+            <Button 
                 Grid.Row="1"
                 Grid.Column="1"
-                RadiusX="100"
-                RadiusY="100"
+                Margin="10"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
-                Margin="10"
-                >
-                <Rectangle.Fill>
-                    <ImageBrush 
-                        ImageSource="{Binding UserImage, TargetNullValue=../Assets/default_avatar.png, FallbackValue=../Assets/default_avatar.png}"/>
-                </Rectangle.Fill>
-            </Rectangle>
+                Background="White"
+                HorizontalContentAlignment="Stretch" 
+                VerticalContentAlignment="Stretch"
+                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                Command="{Binding ChangeImageCommand}">
+
+                <Button.Content>
+                    <Rectangle
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        RadiusX="150"
+                        RadiusY="150"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Margin="10"
+                        >
+                        <Rectangle.Fill>
+                            <ImageBrush 
+                        ImageSource="{Binding UserImage, TargetNullValue=../Assets/avatar.png, FallbackValue=../Assets/avatar.png}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
                 </Button.Content>
             </Button>
-            
-            
+
+
 
             <Button
-    		Grid.Row="2"
-    		Grid.ColumnSpan="3"
-    		Content="Мои голосования"
-    		HorizontalAlignment="Stretch"
-    		VerticalAlignment="Stretch"
-    		Foreground="#000000"
-    		FontFamily="roboto"
-    		FontWeight="Medium"
-    		FontSize="20"
-    		Background="Transparent"
-            BorderBrush="Black"
-            BorderThickness="0.5"
-                 
-                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
-                    Command="{Binding MyRepliesCommand}"
-            />
-            <Button Grid.Row="2"
-    		Margin="10"
-    		Height="30"
-                    Background="White">
-            <Image
-    		Source="../Assets/edit.png"/>
+    		    Grid.Row="2"
+    		    Grid.ColumnSpan="3"
+                Height="40"
+    		    Content="Мои голосования"
+    		    HorizontalAlignment="Stretch"
+    		    VerticalAlignment="Center"
+    		    Foreground="#000000"
+    		    FontFamily="roboto"
+    		    FontWeight="Medium"
+    		    FontSize="20"
+    		    Background="Transparent"
+                BorderBrush="Black"
+                BorderThickness="0.5"
+                IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanToNegationConverter}}"
+                Command="{Binding MyRepliesCommand}"
+                />
+            <Button 
+                Grid.Row="2"
+                Height="35"
+                Background="White"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Image
+    		        Source="../Assets/edit.png"/>
             </Button>
         </Grid>
     </ScrollViewer>
